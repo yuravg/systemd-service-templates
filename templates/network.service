@@ -1,0 +1,28 @@
+[Unit]
+Description=Network Service
+After=<network.target network-online.target syslog.target>
+Before=<network-pre.target>
+Wants=<network-pre.target>
+Conflicts=shutdown.target
+
+[Service]
+User=<user_name>
+Group=<group_name>
+Type=<simple exec forking oneshot dbus notify notify-reload idle>
+ExecStart=</complete_path/command arg1 arg2>
+ExecStop=</complete_path/command arg1 arg2>
+Restart=<always on-failure on-abort>
+RestartSec=<10>
+TimeoutStartSec=5min
+TimeoutStopSec=<0>
+KillMode=<process>
+Environment=VAR1=value "VAR2=string value"
+EnvironmentFile=</complete_path/file>
+StandardError=null
+RemainAfterExit=yes
+
+ProtectSystem=true
+ProtectHome=read-only
+
+[Install]
+WantedBy=multi-user.target

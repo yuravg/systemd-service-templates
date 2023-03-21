@@ -1,0 +1,8 @@
+[Unit]
+Description=Simple Service
+
+[Service]
+ExecStart=</complete_path/command arg1 arg2>
+
+[Install]
+WantedBy=multi-user.target
