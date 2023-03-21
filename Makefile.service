@@ -1,0 +1,101 @@
+#
+# Make-file to installation/manage a systemd service
+#
+# Usage:
+#  1. Create <your-service-file-name> (for example: hello-world.service)
+#  2. Create make-file with content like this:
+#       SERVICE_FNAME = <your-service-file-name>
+#       include Makefile.service
+#  3. Run installation
+#       sudo make install
+#
+
+MAKEFLAGS += --no-print-directory
+
+ifndef SERVICE_FNAME
+  $(error ERROR! You must define variable 'SERVICE_FNAME' - service name!)
+endif
+
+.PHONY: help
+help:
+	@echo ""
+	@echo "Usage:  make [target(s)]"
+	@echo "where target is any of:"
+	@echo ""
+	@echo "  h/help    -- This help"
+	@echo ""
+	@echo "  install   -- Installation service"
+	@echo "  start     -- Start service"
+	@echo "  stop      -- Stop service"
+	@echo "  status    -- Status service"
+	@echo "  cat       -- Display the service file"
+	@echo "  enable    -- Enable service"
+	@echo "  disable   -- Disable service"
+	@echo "  reload    -- Run commands:"
+	@echo "                  'systemctl daemon-reload && systemctl reset-failed'"
+	@echo ""
+	@echo "  all       -- Run targets:"
+	@echo "                  install, start, enable"
+	@echo "  rall      -- Run targets:"
+	@echo "                  stop, disable, reload, remove the service file, all"
+	@echo "  remove    -- Run targets:"
+	@echo "                  stop, disable, remove the service file, reload"
+	@echo ""
+
+h: help
+.DEFAULT_GOAL := help
+
+PATH2SERVICE=/etc/systemd/system
+
+.PHONY: install start stop enable disable reload all rall restart status cat remove remove-file
+install:
+	sudo cp -i $(SERVICE_FNAME) $(PATH2SERVICE)/
+	sudo chmod 644 $(PATH2SERVICE)/$(SERVICE_FNAME)
+
+start:
+	sudo systemctl start $(SERVICE_FNAME)
+
+stop:
+	sudo systemctl stop $(SERVICE_FNAME)
+
+cat:
+	sudo systemctl cat $(SERVICE_FNAME)
+
+enable:
+	sudo systemctl enable $(SERVICE_FNAME)
+
+disable:
+	sudo systemctl disable $(SERVICE_FNAME)
+
+reload:
+	sudo systemctl daemon-reload
+	sudo systemctl reset-failed
+
+all:
+	make install
+	make start
+	make enable
+
+rall:
+	make disable || true
+	make stop || true
+	make reload
+	make remove-file
+	make all
+
+restart:
+	make reload
+	sudo systemctl stop $(SERVICE_FNAME)
+	sudo systemctl start $(SERVICE_FNAME)
+
+status:
+	sudo systemctl status $(SERVICE_FNAME)
+
+remove:
+	make stop || true
+	make disable || true
+	make remove-file
+	make reload
+
+remove-file:
+	sudo rm -i $(PATH2SERVICE)/$(SERVICE_FNAME) || true
