@@ -1,0 +1,11 @@
+[Unit]
+Description=Set US region for Wireless
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/iw reg set US
+
+[Install]
+WantedBy=multi-user.target

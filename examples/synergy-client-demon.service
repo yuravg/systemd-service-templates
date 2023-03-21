@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Synergy client as daemon
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=forking
+Restart=always
+RestartSec=1s
+User=<user-name>
+ExecStart=/usr/bin/synergyc --daemon --name <host-name> <guest-name>
+TimeoutStopSec=0
+
+[Install]
+WantedBy=multi-user.target
