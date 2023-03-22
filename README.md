@@ -59,6 +59,11 @@ man systemd.service
 man systemd-run
 ```
 
+## Contents
+
+- [Makefile.service](Makefile.service) - make-file to installation/manage a systemd service
+- [service_script_example](examples/service_script_example/README.md) - an example showing the use of a script with systemd
+
 ## Links
 - [freedesktop.org/software/systemd/man/systemd.directives](https://www.freedesktop.org/software/systemd/man/systemd.directives.html)
 - [freedesktop.org/wiki/Software/systemd](https://www.freedesktop.org/wiki/Software/systemd/)
