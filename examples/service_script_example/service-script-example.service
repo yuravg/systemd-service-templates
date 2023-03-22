@@ -1,0 +1,9 @@
+[Unit]
+Description=Service Example just to show how use a script with systemd
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/service_script_example.sh
+
+[Install]
+WantedBy=multi-user.target
