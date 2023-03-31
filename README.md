@@ -32,6 +32,20 @@ sudo systemctl enable your-service-name
 sudo systemctl start your-service-name
 ```
 
+## Some systemctl commands
+
+- [systemcl man](https://www.freedesktop.org/software/systemd/man/systemctl.html)
+
+Reload all unit files
+```bash
+sudo systemctl daemon-reload
+```
+
+Reset the state of all units
+```bash
+sudo systemctl reset-failed
+```
+
 ## Systemd journal
 
 ```bash
