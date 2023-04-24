@@ -28,8 +28,8 @@ sudo chmod 644 /etc/systemd/system/your-service-name.service
 ```
 - Run and enable the service
 ```bash
-sudo systemctl enable your-service-name
 sudo systemctl start your-service-name
+sudo systemctl enable your-service-name
 ```
 
 ## Some systemctl commands
