@@ -24,7 +24,7 @@ sudo mv -v your-service-name.service /etc/systemd/system/
 
 - Set permission 644
 ```bash
-sudo chmod /etc/systemd/system/your-service-name.service
+sudo chmod 644 /etc/systemd/system/your-service-name.service
 ```
 - Run and enable the service
 ```bash
